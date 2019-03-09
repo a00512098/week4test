@@ -1,7 +1,7 @@
 package com.example.week4test;
 
 public class StringReverser {
-    private static final String LONG_STRING = "This is a long string that is trying to waste time in the execution method";
+    public static final String LONG_STRING = "This is a long st1213213ring that 34535335 is trying to3453435 waste time in the execution method";
 
 
     public static String reverse(String str) {
@@ -29,5 +29,6 @@ public class StringReverser {
 
     public static void main(String[] args) {
         System.out.println(reverse(LONG_STRING));
+        System.out.println(reverse("425"));
     }
 }

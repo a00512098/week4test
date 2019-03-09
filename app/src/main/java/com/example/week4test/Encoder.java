@@ -1,25 +1,36 @@
 package com.example.week4test;
 
+import static com.example.week4test.StringReverser.LONG_STRING;
+
 public class Encoder {
     // This regex checks for chars with numbers
     private static final String regex = "[^A-Z0-9]+|(?<=[A-Z])(?=[0-9])|(?<=[0-9])(?=[A-Z])";
 
     public static String encode(String message) {
+        System.out.println("The original String was: " + message);
+
         StringBuilder builder = new StringBuilder();
-        String[] splitted = message.split(regex);
         for (int i = 0; i < message.length(); i++) {
-            swapChar(message.charAt(i));
-        }
-        String[] array = message.split(regex);
-        for(String str : array) {
-            System.out.println(str);
+            builder.append(swapChar(message.charAt(i)));
         }
 
-        return message;
+        // Check for numbers
+        String enconded = builder.toString();
+        String[] splitted = message.split(regex);
+        for(String str : splitted) {
+            if (str.length() > 0) {
+                enconded = enconded.replaceFirst(str, StringReverser.reverse(str));
+            }
+        }
+
+        System.out.println("The enconded String is : " + enconded);
+
+        return enconded;
     }
 
     public static void main(String[] args) {
-        encode("239283iokhhuh30292k;kjijo2oj23joij2oijo3");
+        encode("hello425world");
+        encode(LONG_STRING);
     }
     private static char swapChar(char decoded) {
         switch (decoded) {
@@ -44,7 +55,9 @@ public class Encoder {
             case ' ':
                 return 'y';
         }
-
-        return (char) (decoded-1);
+        // if the char is a letter return previous letter
+        // else return the same char
+        boolean constraint = (decoded > 64 && decoded < 91) || (decoded > 96 && decoded < 123);
+        return constraint ? (char) (decoded-1) : decoded;
     }
 }
